@@ -1,7 +1,7 @@
 diff --git a/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-ac-cpu.dtsi b/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-ac-cpu.dtsi
 index 4b2c3c484..bc7efdd0e 100644
---- a/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-ac-cpu.dtsi
-+++ b/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-ac-cpu.dtsi
+--- a/arch/arm64/boot/dts/qcom/ipq8074-ac-cpu.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq8074-ac-cpu.dtsi
 @@ -32,12 +32,37 @@
  		opp-1017600000 {
  			opp-hz = /bits/ 64 <1017600000>;
@@ -45,8 +45,8 @@ index 4b2c3c484..bc7efdd0e 100644
  };
 diff --git a/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-hk-cpu.dtsi b/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-hk-cpu.dtsi
 index be7b4a972..3c2e70da3 100644
---- a/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-hk-cpu.dtsi
-+++ b/target/linux/ipq807x/files-5.10/arch/arm64/boot/dts/qcom/ipq8074-hk-cpu.dtsi
+--- a/arch/arm64/boot/dts/qcom/ipq8074-hk-cpu.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq8074-hk-cpu.dtsi
 @@ -32,32 +32,37 @@
  		opp-1017600000 {
  			opp-hz = /bits/ 64 <1017600000>;
