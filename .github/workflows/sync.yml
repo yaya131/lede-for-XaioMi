@@ -9,9 +9,9 @@ jobs:
   repo-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: yaya131/fork-sync@v1.2.1
+      - uses: tgymnich/fork-sync@v1.6.3
         with:
-          github_token: ${{ secrets.ACTIONS_TRIGGER }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           owner: coolsnowwolf # fork 的上游仓库 user
           head: master # fork 的上游仓库 branch
           base: master # 本地仓库 branch
