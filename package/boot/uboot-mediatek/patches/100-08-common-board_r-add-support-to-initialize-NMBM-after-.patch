@@ -13,7 +13,7 @@ Signed-off-by: Weijie Gao <weijie.gao@mediatek.com>
 
 --- a/common/board_r.c
 +++ b/common/board_r.c
-@@ -382,6 +382,20 @@ static int initr_nand(void)
+@@ -388,6 +388,20 @@ static int initr_nand(void)
  }
  #endif
  

@@ -565,6 +565,23 @@ endef
 $(eval $(call KernelPackage,veth))
 
 
+define KernelPackage/vrf
+  SUBMENU:=$(NETWORK_SUPPORT_MENU)
+  TITLE:=Virtual Routing and Forwarding (Lite)
+  DEPENDS:=@KERNEL_NET_L3_MASTER_DEV
+  KCONFIG:=CONFIG_NET_VRF
+  FILES:=$(LINUX_DIR)/drivers/net/vrf.ko
+  AUTOLOAD:=$(call AutoLoad,30,vrf)
+endef
+
+define KernelPackage/vrf/description
+ This option enables the support for mapping interfaces into VRF's. The
+ support enables VRF devices.
+endef
+
+$(eval $(call KernelPackage,vrf))
+
+
 define KernelPackage/slhc
   SUBMENU:=$(NETWORK_SUPPORT_MENU)
   HIDDEN:=1
@@ -1137,6 +1154,12 @@ $(eval $(call KernelPackage,dnsresolver))
 define KernelPackage/rxrpc
   SUBMENU:=$(NETWORK_SUPPORT_MENU)
   TITLE:=AF_RXRPC support
+  DEPENDS:= \
+    +kmod-crypto-manager \
+    +kmod-crypto-pcbc \
+    +kmod-crypto-fcrypt \
+    +kmod-udptunnel4 \
+    +IPV6:kmod-udptunnel6
   HIDDEN:=1
   KCONFIG:= \
 	CONFIG_AF_RXRPC \
@@ -1145,7 +1168,6 @@ define KernelPackage/rxrpc
   FILES:= \
 	$(LINUX_DIR)/net/rxrpc/rxrpc.ko
   AUTOLOAD:=$(call AutoLoad,30,rxrpc.ko)
-  DEPENDS:= +kmod-crypto-manager +kmod-crypto-pcbc +kmod-crypto-fcrypt
 endef
 
 define KernelPackage/rxrpc/description
@@ -1334,11 +1356,11 @@ define KernelPackage/qrtr
   SUBMENU:=$(NETWORK_SUPPORT_MENU)
   TITLE:=Qualcomm IPC Router support
   HIDDEN:=1
-  DEPENDS:=@(LINUX_5_15||LINUX_5_19)
+  DEPENDS:=@!(LINUX_5_4||LINUX_5_10)
   KCONFIG:=CONFIG_QRTR
   FILES:= \
   $(LINUX_DIR)/net/qrtr/qrtr.ko \
-  $(LINUX_DIR)/net/qrtr/ns.ko
+  $(LINUX_DIR)/net/qrtr/ns.ko@lt6.0
   AUTOLOAD:=$(call AutoProbe,qrtr)
 endef
 
@@ -1381,7 +1403,7 @@ $(eval $(call KernelPackage,qrtr-smd))
 define KernelPackage/qrtr-mhi
   SUBMENU:=$(NETWORK_SUPPORT_MENU)
   TITLE:=MHI IPC Router channels
-  DEPENDS:=+kmod-mhi +kmod-qrtr
+  DEPENDS:=+kmod-mhi-bus +kmod-qrtr
   KCONFIG:=CONFIG_QRTR_MHI
   FILES:= $(LINUX_DIR)/net/qrtr/qrtr-mhi.ko
   AUTOLOAD:=$(call AutoProbe,qrtr-mhi)
@@ -1392,3 +1414,49 @@ define KernelPackage/qrtr-mhi/description
 endef
 
 $(eval $(call KernelPackage,qrtr-mhi))
+
+
+define KernelPackage/mptcp
+  SUBMENU:=$(NETWORK_SUPPORT_MENU)
+  TITLE:=MultiPath TCP support
+  KCONFIG:=CONFIG_MPTCP@ge5.6=y
+  AUTOLOAD:=$(call AutoProbe,mptcp)
+endef
+
+define KernelPackage/mptcp/description
+ MPTCP is a module made for MultiPath TCP support
+endef
+
+$(eval $(call KernelPackage,mptcp))
+
+
+define KernelPackage/mptcp_ipv6
+  SUBMENU:=$(NETWORK_SUPPORT_MENU)
+  TITLE:=MultiPath TCP IPv6 support
+  DEPENDS:=@IPV6 +kmod-mptcp
+  KCONFIG:=CONFIG_MPTCP_IPV6@ge5.6=y
+  AUTOLOAD:=$(call AutoProbe,mptcp_ipv6)
+endef
+
+define KernelPackage/mptcp_ipv6/description
+ MPTCP_IPV6 is a module made for MultiPath TCP IPv6 support
+endef
+
+$(eval $(call KernelPackage,mptcp_ipv6))
+
+
+define KernelPackage/inet-mptcp-diag
+  SUBMENU:=$(NETWORK_SUPPORT_MENU)
+  TITLE:=INET diag support for MultiPath TCP
+  DEPENDS:=kmod-mptcp +kmod-inet-diag
+  KCONFIG:= CONFIG_INET_MPTCP_DIAG@ge5.6
+  FILES:= $(LINUX_DIR)/net/mptcp/mptcp_diag.ko@ge5.6
+  AUTOLOAD:=$(call AutoProbe,mptcp_diag)
+endef
+
+define KernelPackage/inet-mptcp-diag/description
+Support for INET (MultiPath TCP) socket monitoring interface used by
+native Linux tools such as ss.
+endef
+
+$(eval $(call KernelPackage,inet-mptcp-diag))

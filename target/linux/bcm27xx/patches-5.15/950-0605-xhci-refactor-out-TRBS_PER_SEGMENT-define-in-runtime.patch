@@ -145,7 +145,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	if (ret)
  		return -ENOMEM;
  
-@@ -1811,7 +1815,7 @@ int xhci_alloc_erst(struct xhci_hcd *xhc
+@@ -1820,7 +1824,7 @@ int xhci_alloc_erst(struct xhci_hcd *xhc
  	for (val = 0; val < evt_ring->num_segs; val++) {
  		entry = &erst->entries[val];
  		entry->seg_addr = cpu_to_le64(seg->dma);
@@ -205,7 +205,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  		xhci_err(xhci, "Tried to move enqueue past ring segment\n");
  		return;
  	}
-@@ -3153,7 +3156,7 @@ irqreturn_t xhci_irq(struct usb_hcd *hcd
+@@ -3162,7 +3165,7 @@ irqreturn_t xhci_irq(struct usb_hcd *hcd
  	 * that clears the EHB.
  	 */
  	while (xhci_handle_event(xhci) > 0) {
@@ -214,7 +214,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  			continue;
  		xhci_update_erst_dequeue(xhci, event_ring_deq);
  		event_ring_deq = xhci->event_ring->dequeue;
-@@ -3295,7 +3298,8 @@ static int prepare_ring(struct xhci_hcd
+@@ -3304,7 +3307,8 @@ static int prepare_ring(struct xhci_hcd
  		}
  	}
  
@@ -226,7 +226,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  	}
 --- a/drivers/usb/host/xhci.c
 +++ b/drivers/usb/host/xhci.c
-@@ -870,8 +870,8 @@ static void xhci_clear_command_ring(stru
+@@ -876,8 +876,8 @@ static void xhci_clear_command_ring(stru
  	seg = ring->deq_seg;
  	do {
  		memset(seg->trbs, 0,
@@ -237,7 +237,7 @@ Signed-off-by: Jonathan Bell <jonathan@raspberrypi.com>
  			cpu_to_le32(~TRB_CYCLE);
  		seg = seg->next;
  	} while (seg != ring->deq_seg);
-@@ -882,7 +882,7 @@ static void xhci_clear_command_ring(stru
+@@ -888,7 +888,7 @@ static void xhci_clear_command_ring(stru
  	ring->enq_seg = ring->deq_seg;
  	ring->enqueue = ring->dequeue;
  

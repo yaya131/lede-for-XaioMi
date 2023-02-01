@@ -25,7 +25,7 @@ Co-authored-by: Phil Elwell <phil@raspberrypi.org>
 
 --- a/drivers/clk/bcm/clk-bcm2835.c
 +++ b/drivers/clk/bcm/clk-bcm2835.c
-@@ -2423,7 +2423,7 @@ static int __init __bcm2835_clk_driver_i
+@@ -2454,7 +2454,7 @@ static int __init __bcm2835_clk_driver_i
  {
  	return platform_driver_register(&bcm2835_clk_driver);
  }
@@ -36,7 +36,7 @@ Co-authored-by: Phil Elwell <phil@raspberrypi.org>
  MODULE_DESCRIPTION("BCM2835 clock driver");
 --- a/drivers/firmware/raspberrypi.c
 +++ b/drivers/firmware/raspberrypi.c
-@@ -498,7 +498,7 @@ out2:
+@@ -499,7 +499,7 @@ out2:
  out1:
  	return ret;
  }

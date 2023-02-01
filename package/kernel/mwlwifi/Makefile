@@ -8,7 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mwlwifi
-PKG_RELEASE=2
+PKG_RELEASE=3
 
 PKG_LICENSE:=ISC
 PKG_LICENSE_FILES:=
@@ -44,8 +44,7 @@ NOSTDINC_FLAGS := \
 	-include backport/backport.h
 
 define Build/Compile
-	+$(MAKE) $(PKG_JOBS) -C "$(LINUX_DIR)" \
-		$(KERNEL_MAKE_FLAGS) \
+	+$(KERNEL_MAKE) $(PKG_JOBS) \
 		M="$(PKG_BUILD_DIR)" \
 		NOSTDINC_FLAGS="$(NOSTDINC_FLAGS)" \
 		modules

@@ -8,11 +8,14 @@ rockchip_setup_interfaces()
 	local board="$1"
 
 	case "$board" in
+	ariaboard,photonicat|\
 	ezpro,mrkaio-m68s|\
+	hinlink,opc-h66k|\
 	friendlyarm,nanopi-r2c|\
 	friendlyarm,nanopi-r2s|\
 	friendlyarm,nanopi-r4s|\
 	friendlyarm,nanopi-r4se|\
+	rocktech,mpc1903|\
 	sharevdi,guangmiao-g4c|\
 	xunlong,orangepi-r1-plus|\
 	xunlong,orangepi-r1-plus-lts)
@@ -22,7 +25,8 @@ rockchip_setup_interfaces()
 		ucidef_set_interfaces_lan_wan 'eth1 eth2 eth3' 'eth0'
 		;;
 	fastrhino,r66s|\
-	firefly,rk3568-roc-pc)
+	firefly,rk3568-roc-pc|\
+	radxa,e25)
 		ucidef_set_interfaces_lan_wan 'eth0' 'eth1'
 		;;
 	fastrhino,r68s)
@@ -73,7 +77,9 @@ rockchip_setup_macs()
 	local label_mac=""
 
 	case "$board" in
+	ariaboard,photonicat|\
 	ezpro,mrkaio-m68s|\
+	hinlink,opc-h66k|\
 	hinlink,opc-h68k|\
 	fastrhino,r66s|\
 	fastrhino,r68s|\
@@ -81,7 +87,8 @@ rockchip_setup_macs()
 	friendlyarm,nanopi-r2c|\
 	friendlyarm,nanopi-r2s|\
 	friendlyarm,nanopi-r5s|\
-	sharevdi,guangmiao-g4c)
+	sharevdi,guangmiao-g4c|\
+	rocktech,mpc1903)
 		wan_mac=$(generate_mac_from_mmc_cid)
 		lan_mac=$(macaddr_add "$wan_mac" +1)
 		;;
